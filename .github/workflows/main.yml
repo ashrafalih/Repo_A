@@ -1,4 +1,4 @@
-name : Build_and_Publish
+name : Build and Publish
 on: push # this 'on' keyword is use to trigger the event "push" mean the pipeline will run for the push events
 jobs:
   print-hello-world: #defined name of the job
