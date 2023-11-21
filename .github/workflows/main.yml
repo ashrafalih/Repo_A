@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug Output
+        run: echo "Workflow is running!"
       - name: Checkout Repo_A
         uses: actions/checkout@v2
 
