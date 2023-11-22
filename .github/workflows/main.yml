@@ -40,10 +40,13 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/f9x9k0v4
-          docker build -t test-package-mgmt .
+          # docker build -t test-package-mgmt .
           # docker tag test-package-mgmt-160-rc:latest public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
+          # docker tag test-package-mgmt:160-rc public.ecr.aws/f9x9k0v4/package-mgmt-repo:160-rc
+          # docker push public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
+          docker build -t test-package-mgmt:160-rc .
           docker tag test-package-mgmt:160-rc public.ecr.aws/f9x9k0v4/package-mgmt-repo:160-rc
-          docker push public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
+          docker push public.ecr.aws/f9x9k0v4/package-mgmt-repo:160-rc
   
   trigger:
     needs: build-and-publish
