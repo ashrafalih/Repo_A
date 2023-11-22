@@ -32,7 +32,7 @@ jobs:
           --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
       - uses: actions/checkout@v3
 
-########################################################### below is working
+########################################################### below is working #
 # name: Build and Publish # name of the workflow
 # on:
 #   push:
