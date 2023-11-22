@@ -25,9 +25,9 @@ jobs:
 
     strategy:
       matrix:
-        workflow_02: ${{ github.event.inputs.workflow_02 }}
-        workflow2_github_account: ${{ github.event.inputs.workflow2_github_account }}
-        workflow2_repo_github: ${{ github.event.inputs.workflow2_repo_github }}
+        workflow_02: ['${{ github.event.inputs.workflow_02 }}']
+        workflow2_github_account: ['${{ github.event.inputs.workflow2_github_account }}']
+        workflow2_repo_github: ['${{ github.event.inputs.workflow2_repo_github }}']
 
     steps:
       - name: Test
@@ -37,6 +37,7 @@ jobs:
           -u ${{ secrets.ACTIONS_KEY }} \
           --data '{"event_type": "${{ matrix.workflow_02 }}", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
       - uses: actions/checkout@v3
+
 
 ######################################################## perfectly working###############
 # name: workflow_01
