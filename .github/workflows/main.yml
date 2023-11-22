@@ -23,24 +23,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: Set Environment Variables
-      run: |
-        echo "REPO_OWNER=ashrafalih" >> $GITHUB_ENV
-        echo "REPO_NAME=Repo_B" >> $GITHUB_ENV
-        echo "EVENT_TYPE=Trigger Workflow" >> $GITHUB_ENV
+    steps:
+      - name: Set Environment Variables
+        run: |
+          echo "REPO_OWNER=ashrafalih" >> $GITHUB_ENV
+          echo "REPO_NAME=Repo_B" >> $GITHUB_ENV
+          echo "EVENT_TYPE=Trigger Workflow" >> $GITHUB_ENV
 
-    - name: Trigger Workflow 2
-      run: |
-        curl -X POST https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
-        -H 'Accept: application/vnd.github.everest-preview+json' \
-        -u ${{ secrets.ACTIONS_KEY }} \
-        --data "{\"event_type\": \"$EVENT_TYPE\", \"client_payload\": {\"repository\": \"$GITHUB_REPOSITORY\"}}"
-      env:
-        REPO_OWNER: ${{ env.REPO_OWNER }}
-        REPO_NAME: ${{ env.REPO_NAME }}
-        EVENT_TYPE: ${{ env.EVENT_TYPE }}
-    - uses: actions/checkout@v3
+      - name: Trigger Workflow 2
+        run: |
+          curl -X POST https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACTIONS_KEY }} \
+          --data "{\"event_type\": \"$EVENT_TYPE\", \"client_payload\": {\"repository\": \"$GITHUB_REPOSITORY\"}}"
+        env:
+          REPO_OWNER: ${{ env.REPO_OWNER }}
+          REPO_NAME: ${{ env.REPO_NAME }}
+          EVENT_TYPE: ${{ env.EVENT_TYPE }}
+
+      - uses: actions/checkout@v3
+
 
 
 
