@@ -45,6 +45,7 @@ jobs:
           docker push public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
   
   trigger:
+    needs: build-and-publish
     runs-on: ubuntu-latest
 
     steps:
