@@ -22,22 +22,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+  steps:
+    - name: Set Environment Variables
+      run: |
+        echo "REPO_OWNER=ashrafalih" >> $GITHUB_ENV
+        echo "REPO_NAME=Repo_B" >> $GITHUB_ENV
+        echo "EVENT_TYPE=Trigger Workflow" >> $GITHUB_ENV
 
-    strategy:
-      matrix:
-        workflow_02: ['${{ github.event.inputs.workflow_02 }}']
-        workflow2_github_account: ['${{ github.event.inputs.workflow2_github_account }}']
-        workflow2_repo_github: ['${{ github.event.inputs.workflow2_repo_github }}']
-
-    steps:
-      - name: Trigger Workflow 2
-        run: |
-          curl -X POST https://api.github.com/repos/${{ matrix.workflow2_github_account }}/${{ matrix.workflow2_repo_github }}/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.ACTIONS_KEY }} \
-          --data '{"event_type": "${{ matrix.workflow_02 }}", "client_payload": { "repository": "${{ github.repository }}" }}'
-
-      - uses: actions/checkout@v3
+    - name: Trigger Workflow 2
+      run: |
+        curl -X POST https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
+        -H 'Accept: application/vnd.github.everest-preview+json' \
+        -u ${{ secrets.ACTIONS_KEY }} \
+        --data "{\"event_type\": \"$EVENT_TYPE\", \"client_payload\": {\"repository\": \"$GITHUB_REPOSITORY\"}}"
+      env:
+        REPO_OWNER: ${{ env.REPO_OWNER }}
+        REPO_NAME: ${{ env.REPO_NAME }}
+        EVENT_TYPE: ${{ env.EVENT_TYPE }}
+    - uses: actions/checkout@v3
 
 
 ######################################################## perfectly working###############
@@ -66,14 +68,14 @@ jobs:
 #   build:
 #     runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Test
-#         run: |
-#           curl -X POST https://api.github.com/repos/ashrafalih/Repo_B/dispatches \
-#           -H 'Accept: application/vnd.github.everest-preview+json' \
-#           -u ${{ secrets.ACTIONS_KEY }} \
-#           --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
-#       - uses: actions/checkout@v3
+    # steps:
+    #   - name: Test
+    #     run: |
+    #       curl -X POST https://api.github.com/repos/ashrafalih/Repo_B/dispatches \
+    #       -H 'Accept: application/vnd.github.everest-preview+json' \
+    #       -u ${{ secrets.ACTIONS_KEY }} \
+    #       --data '{"event_type": "Trigger Workflow", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+    #   - uses: actions/checkout@v3
 
 ########################################################### below is working #
 # name: Build and Publish # name of the workflow
