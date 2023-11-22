@@ -17,7 +17,7 @@ on:
         default: 'Repo_B'
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
