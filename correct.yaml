@@ -26,15 +26,3 @@ jobs:
           docker tag test-package-mgmt-160-rc:latest public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
           # Push the Docker image to Amazon ECR
           docker push public.ecr.aws/f9x9k0v4/package-mgmt-repo:latest
-      
-      - name: Trigger Workflow in Repo B
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/:owner/:repo/actions/workflows/:workflow_id/dispatches
-          owner: ashrafalih
-          repo: Repo_B
-          workflow_id: 6945091148 
-          ref: ${{ github.event.after }}
-          inputs: |
-            branch_name: ${{ github.event.ref }}
-            docker_image_tag: ${{ github.sha }}
