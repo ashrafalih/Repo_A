@@ -34,4 +34,4 @@ jobs:
           route: POST /repos/ashrafalih/Repo_B/actions/workflows/6945091148/dispatches
           mediaType: '{"inputs": ["branch_name", "docker_image_tag"], "owner": "ashrafalih", "repo": "Repo_B", "workflow_id": "6945091148", "ref": "${{ github.event.after }}"}'
         env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
