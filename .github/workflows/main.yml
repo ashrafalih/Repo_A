@@ -71,7 +71,7 @@ jobs:
           EVENT_TYPE: ${{ env.EVENT_TYPE }}
 
       - uses: actions/checkout@v3
-###############################################
+################################################
 # name: workflow_01
 
 # on:
