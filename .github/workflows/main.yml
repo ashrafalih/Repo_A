@@ -23,7 +23,7 @@ jobs:
         run: |
           docker build . --file Dockerfile --tag ${{ steps.set_image_tag.outputs.image_tag }}
           # docker push ${{ steps.set_image_tag.outputs.image_tag }}
-          
+
       - name: Set Environment Variables
         run: |
           echo "REPO_OWNER=ashrafalih" >> $GITHUB_ENV
@@ -46,12 +46,12 @@ jobs:
 
     
 
-########################################################
+###########################################################
 # name: workflow_01
 # on:
 #   workflow_dispatch:
 #     inputs:
-#       workflow_02:
+#       workflow_02:      
 #         description: 'Workflow 2 which will be triggered'
 #         required: true
 #         default: 'workflow_02'
