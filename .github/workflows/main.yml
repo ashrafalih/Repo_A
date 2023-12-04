@@ -12,7 +12,7 @@ jobs:
       id: image_tag
       value: ${{ steps.set_image_tag.outputs.image_tag }}
     steps:
-      - name: Checkout Repo_1
+      - name: Checkout Repo_A
         uses: actions/checkout@v2
 
       - name: Set Image Tag
@@ -22,7 +22,26 @@ jobs:
       - name: Build and Tag Docker Image
         run: |
           docker build . --file Dockerfile --tag ${{ steps.set_image_tag.outputs.image_tag }}
-          # docker push ${{ steps.set_image_tag.outputs.image_tag }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: v$(date +%s)
+          release_name: Release $(date +%Y-%m-%d)
+          body: Release notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./
+          asset_name: image_tag.txt
+          asset_content_type: text/plain
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 ########################################################
 # name: workflow_01
@@ -87,18 +106,18 @@ jobs:
 #           echo "REPO_NAME=Repo_B" >> $GITHUB_ENV
 #           echo "EVENT_TYPE=Trigger Workflow" >> $GITHUB_ENV
 
-#       - name: Trigger Workflow 2
-#         run: |
-#           curl -X POST https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
-#           -H 'Accept: application/vnd.github.everest-preview+json' \
-#           -u ${{ secrets.ACTIONS_KEY }} \
-#           --data "{\"event_type\": \"$EVENT_TYPE\", \"client_payload\": {\"repository\": \"$GITHUB_REPOSITORY\"}}"
-#         env:
-#           REPO_OWNER: ${{ env.REPO_OWNER }}
-#           REPO_NAME: ${{ env.REPO_NAME }}
-#           EVENT_TYPE: ${{ env.EVENT_TYPE }}
+      # - name: Trigger Workflow 2
+      #   run: |
+      #     curl -X POST https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/dispatches \
+      #     -H 'Accept: application/vnd.github.everest-preview+json' \
+      #     -u ${{ secrets.ACTIONS_KEY }} \
+      #     --data "{\"event_type\": \"$EVENT_TYPE\", \"client_payload\": {\"repository\": \"$GITHUB_REPOSITORY\"}}"
+      #   env:
+      #     REPO_OWNER: ${{ env.REPO_OWNER }}
+      #     REPO_NAME: ${{ env.REPO_NAME }}
+      #     EVENT_TYPE: ${{ env.EVENT_TYPE }}
 
-#       - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
 #####################################################
 # name: workflow_01
 ###testing_changes
