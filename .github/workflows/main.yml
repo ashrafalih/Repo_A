@@ -27,11 +27,11 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: v$(date +%s)
+          tag_name: v1.0.0 
           release_name: Release $(date +%Y-%m-%d)
           body: Release notes
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Use your own PAT secret here
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       - name: Upload Asset
         uses: actions/upload-release-asset@v1
