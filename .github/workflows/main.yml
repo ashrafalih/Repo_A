@@ -12,7 +12,7 @@ jobs:
       id: image_tag
       value: ${{ steps.set_image_tag.outputs.image_tag }}
     steps:
-      - name: Checkout Repo_A
+      - name: Checkout Repo_1
         uses: actions/checkout@v2
 
       - name: Set Image Tag
@@ -22,16 +22,7 @@ jobs:
       - name: Build and Tag Docker Image
         run: |
           docker build . --file Dockerfile --tag ${{ steps.set_image_tag.outputs.image_tag }}
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: v1.0.0 
-          release_name: Release $(date +%Y-%m-%d)
-          body: Release notes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          docker push ${{ steps.set_image_tag.outputs.image_tag }}
 
     
 
