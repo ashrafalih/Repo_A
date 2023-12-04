@@ -31,7 +31,7 @@ jobs:
           release_name: Release $(date +%Y-%m-%d)
           body: Release notes
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_KEY }}  # Use your own PAT secret here
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Use your own PAT secret here
 
       - name: Upload Asset
         uses: actions/upload-release-asset@v1
@@ -41,7 +41,7 @@ jobs:
           asset_name: image_tag.txt
           asset_content_type: text/plain
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_KEY }}  # Use your own PAT secret here
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}  # Use your own PAT secret here
 
 
 ########################################################
