@@ -24,7 +24,7 @@ jobs:
           docker build . --file Dockerfile --tag ${{ steps.set_image_tag.outputs.image_tag }}
           # docker push ${{ steps.set_image_tag.outputs.image_tag }}
 
-#######################################################
+########################################################
 # name: workflow_01
 # on:
 #   workflow_dispatch:
