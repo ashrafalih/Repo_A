@@ -42,7 +42,9 @@ jobs:
           EVENT_TYPE: ${{ env.EVENT_TYPE }}
 
       - uses: actions/checkout@v3
-      
+      - name: Create image_tag.txt file
+        run: echo "image_tag: ${{ steps.set_image_tag.outputs.image_tag }}" > image_tag.txt
+
       - name: Archive Artifact
         uses: actions/upload-artifact@v2
         with:
